@@ -1,0 +1,31 @@
+package leetcode;
+/*
+ * Remove Duplicates from Sorted List 
+ * 
+ * solution: two point   
+ */
+public class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode temp=head;
+        ListNode current=head;
+        if(head == null)
+        	return head;
+        while(true){
+        	while(temp.next != null && temp.next.val== current.val ){
+	        	temp = temp.next;
+	        }
+	        //get the differ value
+	        if(temp.next==null){   
+	        	current.next=null;
+	        	break;
+	        }else{  //temp.next.val != current.val
+	        	current.next=temp.next;
+	        	current=temp.next;
+	        }
+        }
+        return head; 
+    }
+    public static void main(String[] args) {
+		System.out.println("");
+	}
+}
