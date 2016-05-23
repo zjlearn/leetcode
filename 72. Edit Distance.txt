@@ -1,0 +1,61 @@
+package leetcode;
+import java.util.*;
+
+/*
+ * Edit Distance
+ * 问题是： 求两个单词的字段编辑距离。
+ * 限制：允许以下的操作：插入， 删除， 替换一个单词
+ * 
+ * 典型的动态规划问题。
+ * 动态规划方程dp[i][j] 代表word1的前i部分的长度到word2前j部分的编辑距离。
+ * dp[i][j]=dp[i-1][j-1]  //word1[i]==word2[j]
+ * dp[i][j]=min(dp[i-1][j]+1 , dp[i][j-1] +1, dp[i-1][j-1]+1 )
+ * dp[i][j] =i+1或j+1  当i和j有一个为负， 此时执行的是插入的操作
+ 
+ */
+public class Solution {
+    public int minDistance(String word1, String word2) {
+    	int len1=word1.length();
+    	int len2= word2.length();
+        int [][] dp = new int [len1][len2];
+        if(len1==0)
+        	return len2;
+        else if(len2==0)
+        	return len1;
+        int min1, min2, min3;
+        for(int i=0; i< len1; i++)
+        	for(int j=0; j< len2; j++){
+        		if(word1.charAt(i)==word2.charAt(j)){
+        			dp[i][j]=dp(i-1, j-1, dp);
+        			continue;
+        		}
+        		min1=dp(i, j-1, dp)+1;
+        		min2=dp(i-1, j, dp)+1;
+        		min3=dp(i-1, j-1, dp)+1;
+        		dp[i][j]=min(min1, min2,min3);
+        	}
+        return dp[len1-1][len2-1];
+    }
+    private int min(int num1, int num2, int num3){
+    	if(num1 <= num2 && num1 <= num3)
+    		return num1;
+    	else if(num2<= num1 && num2 <= num3)
+    		return num2;
+    	else if (num3 <= num2 && num3 <= num1)
+    		return num3;
+    	return -1;
+    }
+    private int dp(int i, int j, int [][] data){
+    	if(i<0)
+    		return j+1;
+    	if(j<0)
+    		return i+1;
+    	return data[i][j];
+    }
+    public static void main(String[] args) {
+		String word1="abc";
+		String word2="a";
+		int len = new Solution().minDistance(word1,word2);
+		System.out.println(len);
+	}
+}
