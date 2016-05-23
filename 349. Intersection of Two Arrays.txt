@@ -1,0 +1,28 @@
+import java.util.*;
+/*
+ * Intersection of Two Arrays
+ * 方法1： 使用HashTable，或者hashSet记录数组中的元素， 然后在判断num2中的元素是否在其中就可以了
+ * 方法2：对一个较长的数组进行排序， 然后使用二分查找查找另外一个数组中的元素 
+ */
+public class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+    	HashSet<Integer> set= new HashSet<Integer>();
+    	HashSet<Integer> interSet = new HashSet<Integer>();
+    	for(int a: nums1)
+    		set.add(a);
+    	for(int b: nums2)
+    		if(set.contains(b))
+    			interSet.add(b);
+    	int[] result= new int[interSet.size()];
+    	int index=0;
+    	for(int b: interSet)
+    		result[index++]=b;
+        return result;
+    }
+    public static void main(String[] args) {
+		int [] nums1=new int [] {1,2,2,1};
+		int [] nums2= new int []{};
+		int [] c= new Solution().intersection(nums1, nums2);
+		System.out.println(Arrays.toString(c));
+	}
+}
