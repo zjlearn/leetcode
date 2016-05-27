@@ -13,10 +13,12 @@ public class TreeFactory {
 		TreeNode [] treeNodes=new TreeNode[nodeNums+1];
 		//构建值
 		for(int i=0; i<nodeNums; i++){
-			treeNodes[i+1]= new TreeNode(values.get(i));
+            if(values.get(i) != null)
+                treeNodes[i+1]= new TreeNode(values.get(i));
 		}
 		//构建相应的左右孩子关系
 		for(int i=1; i<=nodeNums; i++){
+            if(treeNodes[i]== null) continue ;
 			if(2*i+1 <= nodeNums ){
 				treeNodes[i].left=treeNodes[2*i];
 				treeNodes[i].right=treeNodes[2*i+1];
@@ -35,10 +37,12 @@ public class TreeFactory {
 		TreeNode [] treeNodes=new TreeNode[nodeNums+1];
 		//构建值
 		for(int i=0; i<nodeNums; i++){
-			treeNodes[i+1]= new TreeNode(values[i]);
+            if(values[i] != null)
+                treeNodes[i+1]= new TreeNode(values[i]);
 		}
 		//构建相应的左右孩子关系
 		for(int i=1; i<=nodeNums; i++){
+            if(treeNodes[i]== null) continue ;
 			if(2*i+1 <= nodeNums ){
 				treeNodes[i].left=treeNodes[2*i];
 				treeNodes[i].right=treeNodes[2*i+1];
@@ -51,10 +55,12 @@ public class TreeFactory {
 		return treeNodes[1];
 	}
 	public static void main(String[] args) {
-		Integer [] values = new Integer[]{1,2,3,4,5,6,7};
+		Integer [] values = new Integer[]{1,2,3,4,null,6,7};
 		TreeNode t= TreeFactory.newTree(values);
 		if(t==null)
 			System.out.println("adfas");
 		t.pre_order();
+		System.out.println();
+		t.in_order();
 	}
 }
