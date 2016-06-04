@@ -1,0 +1,34 @@
+package leetcode;
+
+/*
+ * 55. Jump Game
+ * 方法： 贪心策略。 总是跳到那个未来能走最远的位置
+ * 结束条件： 能够到达位置大于last index
+ * 或者 不再前进
+ */
+public class Solution {
+    public boolean canJump(int[] nums) {
+        if(nums.length<=1) return true;
+        int current_position=0;
+        while(true){
+        	int max=-1;
+        	int position=0;
+        	for(int i=1; i<=nums[current_position]; i++){
+        		if(i+current_position + nums[current_position+i] >= nums.length-1)
+        			return true;
+        		if(nums[current_position+i]+i+current_position > max){
+        			position=current_position+i;
+        			max=nums[position]+position;        			
+        		}
+        	}
+        	if(max <= current_position+ nums[current_position])
+        		return false;
+        	current_position=position;  //next position；
+        }
+    }
+    public static void main(String[] args) {
+		int [] nums=new int [] {1,1,1,0};
+		boolean result = new Solution().canJump(nums);
+		System.out.println(result);
+	}
+}
