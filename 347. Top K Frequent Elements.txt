@@ -1,0 +1,52 @@
+import java.util.*;
+
+/*
+ * 算法的目的是实现找出数组中top-k个最近常出现的数字
+ * 想法1：可否对其进行建堆 这样就可以直接的实现top-k查询
+ * 想法2： 先进行hash， 然后对hash之后的计数值 进行桶排序， 然后读出排序的值即可。
+ * 
+ *  */
+
+public class Solution {
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        HashMap<Integer , Integer> k_num = new HashMap<Integer, Integer>();
+        
+        //对每个数字的个数
+        for(int i=0; i<nums.length; i++)
+        	if(k_num.containsKey(nums[i])){
+        		int value=k_num.get(nums[i])+1;
+        		k_num.put(nums[i], value);
+        	}else{
+        		k_num.put(nums[i], 1);
+        	}
+        
+        //利用桶排序对计数的信息进行排序
+        List<List<Integer>> bucket =  new ArrayList<List<Integer>>(nums.length+1);
+        for(int i=0; i<nums.length+1; i++)
+        	bucket.add(new ArrayList<Integer>());
+        for(int i: k_num.keySet()){
+        	int  count=k_num.get(i);
+    		bucket.get(count).add(i);
+        	}
+        
+        
+        //获取结果数据
+        List<Integer>  result= new ArrayList<Integer>();
+        for(int j=bucket.size()-1; j>=0 & k>0; j--){
+        	for(int m=bucket.get(j).size()-1; m >= 0; m--){
+        		result.add(bucket.get(j).get(m));
+        		k--;
+        	}
+        }
+        return result;  
+    }
+    public static void main(String[] args) {
+		int [] data={1,1,1,2,2,3}; 
+		int k=2;
+		List<Integer> result;
+		Solution s = new Solution();
+		result=s.topKFrequent(data, k);
+		for(int i: result)
+			System.out.println(i);
+	}
+}
