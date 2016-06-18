@@ -1,0 +1,18 @@
+/*
+ * 292. Nim Game 
+ * 判断石子数是否是4*n+x (0<x<4) 
+ * 若x=4*n 则输
+ */
+public class Solution {
+    public boolean canWinNim(int n) {
+    	if(n>=4){
+    		n %=4;
+    	}
+    	if(0<n && n<4) return true;
+    	else return false; 		
+    }
+    public static void main(String[] args) {
+    	int n=1;
+		System.out.println(new Solution().canWinNim(n));
+	}
+}

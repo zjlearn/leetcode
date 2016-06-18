@@ -1,0 +1,38 @@
+import java.util.*;
+/*
+ * 102. Binary Tree Level Order Traversal
+ * 给出二叉查找树的层次遍历
+ * 
+ */
+public class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        LinkedList<TreeNode> queue= new LinkedList<TreeNode>();
+        List<List<Integer>>  result= new LinkedList<List<Integer>>();
+        if(root==null)  return result;
+        queue.offer(root);
+        queue.offer(null);//null 作为分层符
+        LinkedList<Integer>  re= new LinkedList<Integer>();
+        while( !queue.isEmpty() ){
+        	TreeNode node = queue.poll();
+        	if(node==null){
+        		result.add(re);
+        		re= new LinkedList<Integer>();
+        		if(!queue.isEmpty())
+        			queue.offer(null);
+        	}else{ //
+        		re.add(node.val);
+        		if(node.left!=null)
+        			queue.offer(node.left);
+        		if(node.right!=null)
+        			queue.offer(node.right);
+        	}
+        }
+        return result;
+    }
+    public static void main(String[] args) {
+    	Integer [] values = new Integer[] {3,9,20,null,null,15,7};
+    	TreeNode root = TreeFactory.newTree(values);
+    	List<List<Integer>> result=new Solution().levelOrder(root);
+    	System.out.println(result.toString());
+	}
+}
