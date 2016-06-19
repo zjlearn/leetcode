@@ -1,0 +1,44 @@
+package leetcode;
+
+public class TreeNode {
+	      int val;
+	      TreeNode left;
+	      TreeNode right;
+	      TreeNode(int x) { val = x; }
+	    //前序的方式打印以node节点为根的的二叉树
+	    public  void  pre_order(){
+	    	System.out.print(this.val +  " ");
+	    	if(this.left != null)
+	    		this.left.pre_order();
+	    	if(this.right != null)
+	    		this.right.pre_order();
+	    	//System.out.println();  //没有办法在遍历完之后，自动换行
+	     }
+	    public void in_order(){
+	    	if(this.left != null)
+	    		this.left.in_order();
+	    	System.out.print(this.val+" ");
+	    	if(this.right != null)
+	    		this.right.in_order();
+	    }
+	    //
+	    public void post_order(){
+	    	if(this.left != null )
+	    	this.left.post_order();
+	    	if(this.right!= null)
+	    		this.right.post_order();
+	    	System.out.print(this.val+" ");
+	    }
+	    public static void main(String[] args) {
+			TreeNode root= new TreeNode(1);
+			TreeNode node2= new TreeNode(2);
+			TreeNode node3= new TreeNode(3);
+			root.left=node2;
+			node2.left=node3;
+			root.pre_order();
+			System.out.println();
+			root.in_order();
+			System.out.println();
+			root.post_order();	
+		}
+}

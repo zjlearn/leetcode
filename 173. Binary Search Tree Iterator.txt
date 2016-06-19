@@ -1,0 +1,38 @@
+/*
+ * 173. Binary Search Tree Iterator
+ * Calling next() will return the next smallest number in the BST.
+ * 限制：时间限制o(1), 空间限制o(h). 其中h为树的高度。
+ * 方法： 因为时间限制， 每次掉用重新遍历树节点， 然后求出相应的节点时不现实的。 
+ * 		所以先对树进行遍历， 将遍历的结果保存在容器中， 每次next时， 返回相应的节点。
+ * 		但是因为空间限制为o(h),所以对于保存全部又是不可以的。 
+ * 		所以需要只能采用： 栈中保存节点， 然后每次从栈中取节点， 这样树的高度就为o(h), 
+ * 		每次next时返回相应的值 
+ */
+public class BSTIterator {
+	private LinkedList<TreeNode> stack;
+    public BSTIterator(TreeNode root) {
+        stack= new LinkedList<TreeNode>();
+        TreeNode temp=root;
+        while(temp!=null){
+        	stack.push(temp);
+        	temp=temp.left;
+        }
+    }
+
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        return !stack.isEmpty();
+    }
+
+    /** @return the next smallest number */
+    public int next() {  
+        TreeNode node= stack.pop();
+        //将右孩子加入到站中去
+        TreeNode temp = node.right;
+        while(temp != null){
+        	stack.push(temp);
+        	temp=temp.left;
+        }
+        return node.val;
+    }
+}

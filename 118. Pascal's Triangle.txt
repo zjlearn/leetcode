@@ -1,0 +1,31 @@
+package leetcode;
+
+import java.util.*;
+
+/*
+ * 118. Pascal's Triangle 
+ */
+
+public class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> result=new ArrayList<List<Integer>>(numRows);
+        for(int i=0; i<numRows; i++){  //for every row
+        	ArrayList<Integer> ri= new ArrayList<Integer>(i+1);
+        	for(int j=0; j<i+1; j++){ //for every col of the row
+        		if(j==0 || j==i ) ri.add(1);
+        		else{
+        			System.out.println(i);
+        			System.out.println(j);
+        			int t=result.get(i-1).get(j-1)+result.get(i-1).get(j);
+        			ri.add(t);
+        		}
+        	}
+        	result.add(ri);
+        }
+        return result;
+    }
+    public static void main(String[] args) {
+		List<List<Integer>> re=new Solution().generate(5);
+		System.out.println(re.toString());
+	}
+}

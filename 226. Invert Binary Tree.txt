@@ -1,0 +1,26 @@
+import java.util.*;
+
+/*
+ * 226. Invert Binary Tree
+ * 反转二叉树
+ * 方法： 递归的对二叉树的左右孩子节点进行交换
+ */
+public class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        invert(root);
+        return root;
+    }
+    //反转某一个节点的左右孩子
+    public void invert(TreeNode  root){
+    	if(root==null) return;
+    	TreeNode temp=root.left;
+    	root.left=root.right;
+    	root.right=temp;
+    	invert(root.left);
+    	invert(root.right);
+    	return;
+    }
+    public static void main(String[] args) {
+		
+	}
+}

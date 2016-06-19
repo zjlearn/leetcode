@@ -1,0 +1,26 @@
+package leetcode;
+/*
+ * 链表生成工程
+ */
+public class ListFactory {
+	//根据data生成一个单向的链表
+	static ListNode newList(int [] data){
+		ListNode head= null;
+		if(data.length==0) return head;
+		head=new ListNode(data[0]);
+		ListNode current=head;
+		for(int i=1; i<data.length; i++){
+			current.next=new ListNode(data[i]);
+			current=current.next;
+		}
+		return head;
+	}
+	public static void main(String[] args) {
+		int [] data= new int[] {1,2,4,3,6,5};
+		ListNode head=ListFactory.newList(data);
+		while(head != null){
+			System.out.println(head.val);
+			head=head.next;
+		}
+	}
+}

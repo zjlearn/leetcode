@@ -1,0 +1,32 @@
+
+import java.util.*;
+
+/*
+ * 141. Linked List Cycle
+ * 判断一个链表是否是循环的
+ * 限制： 不使用额外内存空间
+ * 方法：
+ */
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+    	if(head==null) return false;
+        ListNode point1=head;
+        ListNode point2=head.next;
+        while(point1!=point2){
+        	point1=point1.next;
+        	if(point2!=null)
+        		point2=point2.next;
+        	else
+        		return false;
+        	if(point2!=null)
+        		point2=point2.next;
+        	else
+        		return false;
+        }
+        return true;
+    }
+    public static void main(String[] args) {
+		
+	}
+}

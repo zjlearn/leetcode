@@ -1,0 +1,66 @@
+package leetcode;
+
+import java.util.LinkedList;
+
+/*
+ * 这个是针对leetcode中的测试， 构建的一个树工厂， 用于方便产生树的测试用例
+ */
+public class TreeFactory {
+	
+	static TreeNode newTree(LinkedList<Integer> values){
+		int nodeNums= values.size();
+		if(nodeNums==0) return null;
+		TreeNode [] treeNodes=new TreeNode[nodeNums+1];
+		//构建值
+		for(int i=0; i<nodeNums; i++){
+            if(values.get(i) != null)
+                treeNodes[i+1]= new TreeNode(values.get(i));
+		}
+		//构建相应的左右孩子关系
+		for(int i=1; i<=nodeNums; i++){
+            if(treeNodes[i]== null) continue ;
+			if(2*i+1 <= nodeNums ){
+				treeNodes[i].left=treeNodes[2*i];
+				treeNodes[i].right=treeNodes[2*i+1];
+			}else if(2*i <= nodeNums){
+				treeNodes[i].left=treeNodes[2*i];
+			}else{
+				break;  //不需要在做下面的事情了。 以为下面的节点的左右孩子一定为空， 也就是一定为叶子
+			}
+		}
+		return treeNodes[1];
+	}
+	//重构函数
+	static TreeNode newTree(Integer [] values){
+		int nodeNums= values.length;
+		if(nodeNums==0) return null;
+		TreeNode [] treeNodes=new TreeNode[nodeNums+1];
+		//构建值
+		for(int i=0; i<nodeNums; i++){
+            if(values[i] != null)
+                treeNodes[i+1]= new TreeNode(values[i]);
+		}
+		//构建相应的左右孩子关系
+		for(int i=1; i<=nodeNums; i++){
+            if(treeNodes[i]== null) continue ;
+			if(2*i+1 <= nodeNums ){
+				treeNodes[i].left=treeNodes[2*i];
+				treeNodes[i].right=treeNodes[2*i+1];
+			}else if(2*i <= nodeNums){
+				treeNodes[i].left=treeNodes[2*i];
+			}else{
+				break;  //不需要在做下面的事情了。 以为下面的节点的左右孩子一定为空， 也就是一定为叶子
+			}
+		}
+		return treeNodes[1];
+	}
+	public static void main(String[] args) {
+		Integer [] values = new Integer[]{1,2,3,4,null,6,7};
+		TreeNode t= TreeFactory.newTree(values);
+		if(t==null)
+			System.out.println("adfas");
+		t.pre_order();
+		System.out.println();
+		t.in_order();
+	}
+}
