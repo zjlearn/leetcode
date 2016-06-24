@@ -1,0 +1,45 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+/*
+ * 113. Path Sum II
+ * Given a binary tree and a sum, 
+ * find all root-to-leaf paths where each path's sum equals the given sum.
+ * 方法： 深度优先遍历。 
+ * 注意： 树中的节点的值可能会负值
+ */
+public class Solution {
+    private static void depSearch(TreeNode root, List<Integer> path, List<List<Integer>> result, int sum, int current ){
+    	if(root.val + current ==sum &&root.left==null && root.right==null ){
+    		path.add(root.val);
+    		LinkedList t= new LinkedList<Integer>(path);
+    		result.add(t);
+    		System.out.println(t);
+    		path.remove(path.size()-1);
+    	}else{  //root.val + current !=sum or not the leaft node 
+    		path.add(root.val);
+    		if(root.left!=null)
+    			depSearch(root.left, path , result, sum, current+root.val);
+    		if(root.right!=null)
+    			depSearch(root.right, path, result, sum, current+root.val);
+    		//undo the state
+    		path.remove(path.size()-1);
+    		
+    	}
+    }
+	public List<List<Integer>> pathSum(TreeNode root, int sum) {
+		List<List<Integer>>  result= new ArrayList<List<Integer>>();
+		if(root==null) return result;
+		List<Integer> path= new LinkedList<Integer>(); //save　the depth search path
+		depSearch(root, path, result, sum, 0);
+		return result;
+    }
+    public static void main(String[] args) {
+	    /*Integer [] values= new Integer[]{1,-2,-3,1,3,-2,null,-1};
+		TreeNode root= TreeFactory.newTree(values);
+		int sum=-1;
+		List<List<Integer>> result= new Solution().pathSum(root, sum);
+		System.out.println(result.toString());*/
+	}
+}
