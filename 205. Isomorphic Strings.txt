@@ -1,0 +1,34 @@
+package leetcode;
+
+import java.util.HashMap;
+import java.util.HashSet;
+
+
+
+public class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        HashMap<Character, Character> transTable = new HashMap<Character, Character>();
+        HashSet<Character> hashed=new HashSet<Character>();
+        int len= s.length();
+        for(int i=0; i<len; i++){
+        	Character c= s.charAt(i);
+        	if(transTable.containsKey(c)){
+        		if(transTable.get(c)==t.charAt(i))
+        			;
+        		else
+        			return false;
+        	}else{
+        		if(hashed.contains(t.charAt(i)))
+        			return false;
+        		transTable.put(c, t.charAt(i));
+        		hashed.add(t.charAt(i));
+        	}
+        }
+        return true; 	
+    }
+    public static void main(String[] args) {
+    	String s="ab";
+    	String t= "aa";
+    	System.out.println(new Solution().isIsomorphic(s, t));
+	}
+}
