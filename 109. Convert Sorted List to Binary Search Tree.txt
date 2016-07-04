@@ -1,0 +1,42 @@
+package leetcode;
+
+/*
+ * 109. Convert Sorted List to Binary Search Tree
+ * 按照中间加点作为根节点创建二叉树是最为平衡的二叉树
+ * 递归下去即可
+ * 
+ * 寻找中间节点可以使用快慢指针。快指针
+ */
+public class Solution {
+    public TreeNode sortedListToBST(ListNode head) {
+        if(head==null)
+        	return null;
+        else if(head.next==null)
+        	return new TreeNode(head.val);
+        //find mid
+        ListNode mid=finMid(head);
+        TreeNode root=new TreeNode(mid.val);
+        root.left=sortedListToBST(head);
+        root.right=sortedListToBST(mid.next);
+        return root;
+    }
+    //return the mid of link
+    private ListNode finMid(ListNode head){
+    	ListNode fast=head;
+        ListNode slow=head;
+        ListNode preSlow=head;
+        while(fast!=null){
+        	
+        	fast=fast.next;
+        	if(fast!=null){
+        		fast=fast.next;
+        		preSlow=slow;
+        		slow=slow.next;
+        	}
+        	else
+        		break;
+        }
+        preSlow.next=null;
+        return slow;
+    }
+}
